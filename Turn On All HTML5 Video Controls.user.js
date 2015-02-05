@@ -9,9 +9,10 @@
 // @grant        none
 // ==/UserScript==
 
+var DEBUG = false;
+
 // Setup a new observer to get notified of changes
 var observer = new MutationObserver(function (mutations) {
-    var DEBUG = false;
     
     mutations.forEach(function (mutation) {
       
@@ -60,3 +61,13 @@ var options = {
 
 // Observe a specific DOM node / subtree
 observer.observe(document, options);
+
+// Do all the videos that are part of the original document
+var videos = document.getElementsByTagName("VIDEO");
+for (var y = 0; y < videos.length; y++) {
+    var video = videos[y];
+    if (DEBUG) console.log("Found a video!: ", video);
+    turnOnControls(video);
+
+// TODO: Handle pages that later turn off the controls in JS.
+}
